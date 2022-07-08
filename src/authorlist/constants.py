@@ -1,6 +1,6 @@
 """Constants."""
 
-from typing import Union
+from typing import Literal, Union, cast
 
 import pandas as pd
 
@@ -12,7 +12,9 @@ __all__ = [
     "get_google_sheets_df",
 ]
 
-ROLE = {"Lead": 0, "Senior": 2}
+ROLES = Literal["Lead", "Senior"]
+
+ROLE: dict[ROLES, int] = {"Lead": 0, "Senior": 2}
 
 SUPERSCRIPTS = {
     "0": "⁰",
@@ -34,7 +36,7 @@ def sort_key(row: tuple[str, ...]) -> tuple[int, str]:
     Sort rows first by author role (i.e., lead goes first, senior goes
     last, everyone else middle) then by last name within the middle authors.
     """
-    return ROLE.get(row[3], 1), row[2]
+    return ROLE.get(cast(ROLES, row[3]), 1), row[2]
 
 
 def get_google_sheets_df(google_sheet: str, gid: Union[str, int]) -> pd.DataFrame:

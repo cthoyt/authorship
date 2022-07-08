@@ -40,7 +40,7 @@ class Author(BaseModel):
     institutions: list[Institution]
 
 
-class Authorship:
+class Authorship(BaseModel):
     authors: list[Author]
     institutions: list[Institution]
 

@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Iterable, Optional, Union
 
+from class_resolver import HintOrType, OptionalKwargs
 from pydantic import BaseModel
 
 __all__ = [
@@ -62,6 +63,18 @@ class Reader(ABC):
     @abstractmethod
     def get_authorship(self) -> Authorship:
         """Get an author list."""
+
+    def print(  # noqa:T202
+        self,
+        writer: HintOrType["Writer"],
+        writer_kwargs: OptionalKwargs = None,
+        **kwargs,
+    ) -> None:
+        """Print the authorship from this reader with a writer, given by name (e.g., text, biorxiv)."""
+        from .writer import writer_resolver
+
+        _writer = writer_resolver.make(writer, writer_kwargs)
+        _writer.print(self.get_authorship(), **kwargs)
 
 
 class Writer(ABC):

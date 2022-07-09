@@ -5,7 +5,7 @@ from typing import Union
 import pandas as pd
 
 from ..api import Author, Authorship, Institution, Reader
-from ..constants import get_hoyt_google_sheets_df, hoyt_sort_key
+from ..constants import get_hoyt_google_sheets_df, hoyt_sort_key, safe
 
 __all__ = [
     "SheetReader",
@@ -45,7 +45,7 @@ class SheetReader(Reader):
                 ("Affiliation", "Affiliation Address", "Affiliation ROR/Wikidata"),
                 ("Affiliation 2", "Affiliation 2 Address", "Affiliation 2 ROR/Wikidata"),
             ]:
-                name, address, uri = (_x(row[column_to_idx[key]]) for key in keys)
+                name, address, uri = (safe(row[column_to_idx[key]]) for key in keys)
                 if name is None:
                     continue
                 if pd.isna(uri):
@@ -70,13 +70,13 @@ class SheetReader(Reader):
         authors = []
         for row in rows:
             author = Author(
-                first=_x(row[0]),
-                middle=_x(row[1]),
-                last=_x(row[2]),
-                role=_x(row[3]),
+                first=safe(row[0]),
+                middle=safe(row[1]),
+                last=safe(row[2]),
+                role=safe(row[3]),
                 corresponding=row[3] == "Senior",
-                email=_x(row[4]),
-                orcid=_x(row[5]),
+                email=safe(row[4]),
+                orcid=safe(row[5]),
                 wikidata=row[6].removeprefix("https://www.wikidata.org/wiki/")
                 if pd.notna(row[6])
                 else None,
@@ -86,14 +86,10 @@ class SheetReader(Reader):
                     for key in ["Affiliation", "Affiliation 2"]
                     if pd.notna(row[column_to_idx[key]])
                 ],
-                conflict=_x(row[14]),
+                conflict=safe(row[14]),
             )
             authors.append(author)
         return Authorship(authors=authors, institutions=list(institutions.values()))
-
-
-def _x(y):
-    return None if pd.isna(y) else y
 
 
 class GoogleSheetReader(SheetReader):

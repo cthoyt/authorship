@@ -42,7 +42,20 @@ def hoyt_sort_key(row: tuple[str, ...]) -> tuple[int, str]:
     return ROLE.get(cast(ROLES, row[3]), 1), row[2]
 
 
-def get_hoyt_google_sheets_df(google_sheet: str, gid: Union[str, int]) -> pd.DataFrame:
+def get_hoyt_google_sheets_df(google_sheet: str, gid: Union[str, int] = 0) -> pd.DataFrame:
     """Get the dataframe from google."""
     url = f"https://docs.google.com/spreadsheets/d/{google_sheet}/export?format=tsv&gid={gid}"
     return pd.read_csv(url, sep="\t", skiprows=1)
+
+
+def get_obo_google_sheets_df(
+    google_sheet: str, gid: Union[str, int] = 0, skiprows=None
+) -> pd.DataFrame:
+    """Get the dataframe from google."""
+    url = f"https://docs.google.com/spreadsheets/d/{google_sheet}/export?format=tsv&gid={gid}"
+    return pd.read_csv(url, sep="\t", skiprows=skiprows)
+
+
+def safe(y):
+    """Get a value or convert NaN to none."""
+    return None if pd.isna(y) else y

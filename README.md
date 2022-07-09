@@ -43,10 +43,20 @@ Format author lists for academic texts and journal submissions.
 ## 💪 Getting Started
 
 ```python
-from authorlist.reader import GoogleSheetReader
+from authorlist.reader import GoogleSheetReader, OboGoogleSheetReader
 from authorlist.writer import BiorxivWriter, ScientificDataWriter, TextWriter
 
+# Standard google sheet
 reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
+TextWriter().print(reader)
+BiorxivWriter().print(reader)
+ScientificDataWriter().print(reader)
+
+# OBO community-flavored google sheet
+reader = OboGoogleSheetReader(
+   "1NfhibWHOKgV2glmgRdKMzHEzTCw2_dUq_t0Zq64cgeQ",
+   skiprows=1,
+)
 TextWriter().print(reader)
 BiorxivWriter().print(reader)
 ScientificDataWriter().print(reader)

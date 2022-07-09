@@ -1,9 +1,9 @@
 """Write an author list for the LaTeX template provided by Nature Scientific Data."""
 
 from operator import itemgetter
-from typing import Iterable
+from typing import Iterable, Optional
 
-from ..api import Authorship, Writer
+from ..api import Author, Authorship, Writer
 
 __all__ = [
     "ScientificDataWriter",
@@ -15,8 +15,8 @@ class ScientificDataWriter(Writer):
 
     def iter_lines(self, authorship: Authorship) -> Iterable[str]:
         """Iterate lines."""
-        corresponding = None
-        affiliation_counts = {}
+        corresponding: Optional[Author] = None
+        affiliation_counts: dict[str, int] = {}
         for author in authorship.authors:
             local_numbering = []
             for affiliation in author.institutions:
@@ -32,7 +32,8 @@ class ScientificDataWriter(Writer):
                 corresponding = author
             yield rf"\author[{affiliation_text}]{{{author.name}}}"
 
-        for affiliation, index in sorted(affiliation_counts.items(), key=itemgetter(1)):
-            yield rf"\affil[{index + 1}]{{{affiliation}}}"
+        for _affiliation, index in sorted(affiliation_counts.items(), key=itemgetter(1)):
+            yield rf"\affil[{index + 1}]{{{_affiliation}}}"
 
-        yield rf"\affil[*]{{corresponding author(s): {corresponding.name} ({corresponding.email})}}"
+        if corresponding is not None:
+            yield rf"\affil[*]{{corresponding author(s): {corresponding.name} ({corresponding.email})}}"

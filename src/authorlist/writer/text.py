@@ -18,7 +18,7 @@ class TextWriter(Writer):
 
     def iter_lines(self, authorship: Authorship) -> Iterable[str]:
         """Iterate over text lines."""
-        affiliation_counts = {}
+        affiliation_counts: dict[str, int] = {}
         for author in authorship.authors:
             local_numbering = []
             for affiliation in author.institutions:

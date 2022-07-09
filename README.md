@@ -52,6 +52,10 @@ TextWriter().print(reader)
 BiorxivWriter().print(reader)
 ScientificDataWriter().print(reader)
 
+# shortcut via class_resolver
+reader.print("text")
+reader.print("biorxiv)
+
 # OBO community-flavored google sheet
 reader = OboGoogleSheetReader(
    "1NfhibWHOKgV2glmgRdKMzHEzTCw2_dUq_t0Zq64cgeQ",

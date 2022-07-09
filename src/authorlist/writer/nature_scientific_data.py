@@ -1,55 +1,38 @@
-"""Generate author list text from a Google Sheet."""
+"""Write an author list for the LaTeX template provided by Nature Scientific Data."""
 
 from operator import itemgetter
+from typing import Iterable
 
-import click
-import pandas as pd
+from ..api import Authorship, Writer
 
-from ..constants import ROLE, SUPERSCRIPTS, SUPERSCRIPTS_TRANS, get_google_sheets_df, sort_key
-
-
-@click.command()
-@click.option("--google_sheet")
-@click.option("--gid", type=int, default=0)
-def main(google_sheet: str, gid: int):
-    """Create author list text from a google sheet."""
-    df = get_google_sheets_df(google_sheet, gid)
-    column_to_idx = {column: i for i, column in enumerate(df.columns)}
-
-    rows = sorted(df.values, key=sort_key)
-    affiliation_counts = {}
-    names = []
-    corresponding_name = None
-    for row in rows:
-        affiliations = []
-        for affiliation_key in ["Affiliation", "Affiliation 2"]:
-            affiliation = row[column_to_idx[affiliation_key]]
-            if pd.notna(affiliation):
-                affiliations.append(affiliation)
-                if affiliation not in affiliation_counts:
-                    affiliation_counts[affiliation] = len(affiliation_counts)
-
-        affiliation_text = ",".join(
-            str(affiliation_counts[affiliation] + 1) for affiliation in affiliations
-        )
-        if pd.notna(row[1]):
-            # there's a middle name/initial
-            name = f"{row[0]} {row[1]} {row[2]}"
-        else:
-            name = f"{row[0]} {row[2]}"
-        if row[3] == "Lead":
-            affiliation_text = f"{affiliation_text},*"
-            corresponding_name = name
-
-        names.append(rf"\author[{affiliation_text}]{{{name}}}")
-
-    print(*names, sep="\n")
-
-    for affiliation, index in sorted(affiliation_counts.items(), key=itemgetter(1)):
-        print(rf"\affil[{index + 1}]{{{affiliation}}}")
-
-    print(rf"\affil[*]{{corresponding author(s): {corresponding_name} (FIXME)}}")
+__all__ = [
+    "ScientificDataWriter",
+]
 
 
-if __name__ == "__main__":
-    main()
+class ScientificDataWriter(Writer):
+    """Write an author list for the latex template for Nature Scientific Data."""
+
+    def iter_lines(self, authorship: Authorship) -> Iterable[str]:
+        """Iterate lines."""
+        corresponding = None
+        affiliation_counts = {}
+        for author in authorship.authors:
+            local_numbering = []
+            for affiliation in author.institutions:
+                local_numbering.append(affiliation)
+                if affiliation.name not in affiliation_counts:
+                    affiliation_counts[affiliation.name] = len(affiliation_counts)
+
+            affiliation_text = ",".join(
+                str(affiliation_counts[affiliation.name] + 1) for affiliation in local_numbering
+            )
+            if author.role == "Senior":
+                affiliation_text = f"{affiliation_text},*"
+                corresponding = author
+            yield rf"\author[{affiliation_text}]{{{author.name}}}"
+
+        for affiliation, index in sorted(affiliation_counts.items(), key=itemgetter(1)):
+            yield rf"\affil[{index + 1}]{{{affiliation}}}"
+
+        yield rf"\affil[*]{{corresponding author(s): {corresponding.name} ({corresponding.email})}}"

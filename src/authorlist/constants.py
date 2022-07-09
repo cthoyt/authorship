@@ -8,8 +8,8 @@ __all__ = [
     "ROLE",
     "SUPERSCRIPTS",
     "SUPERSCRIPTS_TRANS",
-    "sort_key",
-    "get_google_sheets_df",
+    "hoyt_sort_key",
+    "get_hoyt_google_sheets_df",
 ]
 
 ROLES = Literal["Lead", "Senior"]
@@ -31,15 +31,18 @@ SUPERSCRIPTS = {
 SUPERSCRIPTS_TRANS = str.maketrans(SUPERSCRIPTS)
 
 
-def sort_key(row: tuple[str, ...]) -> tuple[int, str]:
-    """
-    Sort rows first by author role (i.e., lead goes first, senior goes
-    last, everyone else middle) then by last name within the middle authors.
+def hoyt_sort_key(row: tuple[str, ...]) -> tuple[int, str]:
+    """Sort a row by author role.
+
+    Lead goes first, senior goes last, everyone else middle) then by last name within the middle authors.
+
+    :param row: A row from a hoyt-style sheet.
+    :returns: A valid sort tuple
     """
     return ROLE.get(cast(ROLES, row[3]), 1), row[2]
 
 
-def get_google_sheets_df(google_sheet: str, gid: Union[str, int]) -> pd.DataFrame:
+def get_hoyt_google_sheets_df(google_sheet: str, gid: Union[str, int]) -> pd.DataFrame:
     """Get the dataframe from google."""
     url = f"https://docs.google.com/spreadsheets/d/{google_sheet}/export?format=tsv&gid={gid}"
     return pd.read_csv(url, sep="\t", skiprows=1)

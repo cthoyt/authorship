@@ -1,9 +1,8 @@
-"""Generate author list text from a Google Sheet."""
+"""Write an author list for bioRxiv bulk upload."""
 
-import click
-import pandas as pd
+from typing import Iterable
 
-from ..constants import get_google_sheets_df, sort_key
+from ..api import Author, Authorship, Writer
 
 HEADER = [
     "Email",
@@ -19,46 +18,31 @@ HEADER = [
 ]
 
 
-@click.command()
-@click.option("--google_sheet")
-@click.option("--gid", type=int, default=0)
-@click.option("--output", type=click.File("w"))
-def main(google_sheet: str, gid: int, output):
-    """Create author list text from a google sheet."""
-    df = get_google_sheets_df(google_sheet, gid)
-    column_to_idx = {column: i for i, column in enumerate(df.columns)}
+class BiorxivWriter(Writer):
+    """Write output for bioRxiv bulk author import."""
 
-    rows = sorted(df.values, key=sort_key)
-    affiliation_counts = {}
-    output_rows = []
-    for row in rows:
-        affiliations = []
-        for affiliation_key in ["Affiliation", "Affiliation 2"]:
-            affiliation = row[column_to_idx[affiliation_key]]
-            if pd.notna(affiliation):
-                affiliations.append(affiliation)
-                if affiliation not in affiliation_counts:
-                    affiliation_counts[affiliation] = len(affiliation_counts)
-
-        output_rows.append(
-            (
-                row[4],  # email
-                row[8],  # institution
-                row[0],  # first name
-                row[1],  # middle name
-                row[2],  # last name
-                "",  # suffix,
-                "x" if row[3] == "Senior" else "",  # corresponding
-                row[6],  # home page
-                "",  # Collaborative Group/Consortium
-                row[5],  # orcid
-            )
+    def author_to_row(self, author: Author) -> tuple[str, ...]:
+        """Make a row from an author."""
+        return (
+            author.email,
+            author.institutions[0].name,
+            author.first,
+            author.middle or "",
+            author.last,
+            "",  # suffix
+            "x" if author.role == "Senior" else "",  # corresponding
+            f"https://bioregistry.io/wikidata:{author.wikidata}",  # homepage TODO look up from wikidata
+            "",  # Collaborative Group/Consortium
+            author.orcid,
         )
 
-    # TODO sanitize unicode characters
-    df = pd.DataFrame(output_rows, columns=HEADER)
-    df.to_csv(output, sep="\t", index=False)
+    def iter_rows(self, authorship: Authorship) -> Iterable[tuple[str, ...]]:
+        """Iterate over all author rows."""
+        for author in authorship.authors:
+            yield self.author_to_row(author)
 
-
-if __name__ == "__main__":
-    main()
+    def iter_lines(self, authorship: Authorship) -> Iterable[str]:
+        """Iterate over lines for a bioRxiv author template."""
+        yield "\t".join(HEADER)
+        for row in self.iter_rows(authorship):
+            yield "\t".join(row)

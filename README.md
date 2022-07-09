@@ -42,20 +42,15 @@ Format author lists for academic texts and journal submissions.
 
 ## 💪 Getting Started
 
-> TODO show in a very small amount of space the **MOST** useful thing your package can do.
-Make it as short as possible! You have an entire set of docs for later.
+```python
+from authorlist.reader import GoogleSheetReader
+from authorlist.writer import BiorxivWriter, ScientificDataWriter, TextWriter
 
-### Command Line Interface
-
-The authorlist command line tool is automatically installed. It can
-be used from the shell with the `--help` flag to show all subcommands:
-
-```shell
-$ authorlist --help
+reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
+TextWriter().print(reader)
+BiorxivWriter().print(reader)
+ScientificDataWriter().print(reader)
 ```
-
-> TODO show the most useful thing the CLI does! The CLI will have documentation auto-generated
-by `sphinx`.
 
 ## 🚀 Installation
 

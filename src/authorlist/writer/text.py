@@ -32,5 +32,6 @@ class TextWriter(Writer):
             )
             yield f"{author.name}{affiliation_text}"
 
+        yield ""
         for affiliation_name, index in sorted(affiliation_counts.items(), key=itemgetter(1)):
             yield f"{index + 1}. {affiliation_name}"

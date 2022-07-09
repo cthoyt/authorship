@@ -34,7 +34,7 @@ class Author(BaseModel):
     last: str
     email: str
     orcid: str
-    wikidata: str
+    wikidata: Optional[str]
     role: Optional[str]
     homepage: Optional[str]
     conflict: Optional[str]

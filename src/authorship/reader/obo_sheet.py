@@ -98,9 +98,10 @@ def get_author(row, code_to_institution: dict[int, Institution]) -> Author:
     """Get an author from a row."""
     first = row["First name"]
     last = row["Last name"]
-    codes = [
-        int(key.strip()) for key in row["Organization + location (will separate later)"].split(",")
-    ]
+    codes_str = row["Organization + location (will separate later)"]
+    if pd.isna(codes_str):
+        raise ValueError(f"no affiliations written for {first} {last}")
+    codes = [int(key.strip()) for key in codes_str.split(",")]
     institutions = []
     for code in codes:
         if code not in code_to_institution:

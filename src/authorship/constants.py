@@ -45,7 +45,7 @@ def hoyt_sort_key(row: tuple[str, ...]) -> tuple[int, str]:
 def get_hoyt_google_sheets_df(google_sheet: str, gid: Union[str, int] = 0) -> pd.DataFrame:
     """Get the dataframe from google."""
     url = f"https://docs.google.com/spreadsheets/d/{google_sheet}/export?format=tsv&gid={gid}"
-    return pd.read_csv(url, sep="\t", skiprows=1)
+    return pd.read_csv(url, sep="\t", skiprows=1, dtype=str)
 
 
 def get_obo_google_sheets_df(
@@ -53,7 +53,7 @@ def get_obo_google_sheets_df(
 ) -> pd.DataFrame:
     """Get the dataframe from google."""
     url = f"https://docs.google.com/spreadsheets/d/{google_sheet}/export?format=tsv&gid={gid}"
-    return pd.read_csv(url, sep="\t", skiprows=skiprows)
+    return pd.read_csv(url, sep="\t", skiprows=skiprows, dtype=str)
 
 
 def safe(y):

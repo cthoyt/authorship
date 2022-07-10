@@ -66,7 +66,7 @@ class Reader(ABC):
 
     def print(  # noqa:T202
         self,
-        writer: HintOrType["Writer"],
+        writer: HintOrType["Writer"] = "text",
         writer_kwargs: OptionalKwargs = None,
         file=None,
         **kwargs,

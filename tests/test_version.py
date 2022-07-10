@@ -4,7 +4,7 @@
 
 import unittest
 
-from authorlist.version import get_version
+from authorship.version import get_version
 
 
 class TestVersion(unittest.TestCase):

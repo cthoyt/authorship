@@ -5,8 +5,8 @@ from typing import Union
 
 import pandas as pd
 
-from authorlist.api import Author, Authorship, Institution, Reader
-from authorlist.constants import get_obo_google_sheets_df, safe
+from ..api import Author, Authorship, Institution, Reader
+from ..constants import get_obo_google_sheets_df, safe
 
 __all__ = [
     "OboSheetReader",

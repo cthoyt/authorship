@@ -1,4 +1,4 @@
 Usage
 =====
-.. automodule:: authorlist.api
+.. automodule:: authorship.api
     :members:

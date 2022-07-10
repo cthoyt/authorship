@@ -1,5 +1,5 @@
-Author List |release| Documentation
-===================================
+Authorship |release| Documentation
+==================================
 
 Cookiecutter
 ------------

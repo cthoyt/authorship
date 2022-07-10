@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.abspath("../../src"))
 
 # -- Project information -----------------------------------------------------
 
-project = "authorlist"
+project = "authorship"
 copyright = f"{date.today().year}, Charles Tapley Hoyt"
 author = "Charles Tapley Hoyt"
 
@@ -50,7 +50,7 @@ if parsed_version.group("release"):
 add_module_names = False
 
 # A list of prefixes that are ignored when creating the module index. (new in Sphinx 0.6)
-modindex_common_prefix = ["authorlist."]
+modindex_common_prefix = ["authorship."]
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -140,7 +140,7 @@ if os.path.exists("logo.png"):
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "Author Listdoc"
+htmlhelp_basename = "Authorshipdoc"
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -168,8 +168,8 @@ htmlhelp_basename = "Author Listdoc"
 # latex_documents = [
 #     (
 #         master_doc,
-#         'authorlist.tex',
-#         'Author List Documentation',
+#         'authorship.tex',
+#         'Authorship Documentation',
 #         author,
 #         'manual',
 #     ),
@@ -182,8 +182,8 @@ htmlhelp_basename = "Author Listdoc"
 man_pages = [
     (
         master_doc,
-        "authorlist",
-        "Author List Documentation",
+        "authorship",
+        "Authorship Documentation",
         [author],
         1,
     ),
@@ -197,8 +197,8 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "authorlist",
-        "Author List Documentation",
+        "authorship",
+        "Authorship Documentation",
         author,
         "Charles Tapley Hoyt",
         "Format author lists for academic texts and journal submissions.",

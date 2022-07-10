@@ -1,8 +1,8 @@
 Command Line Interface
 ======================
-authorlist automatically installs the command :code:`authorlist`. See
-:code:`authorlist --help` for usage details.
+authorship automatically installs the command :code:`authorship`. See
+:code:`authorship --help` for usage details.
 
-.. click:: authorlist.cli:main
-   :prog: authorlist
+.. click:: authorship.cli:main
+   :prog: authorship
    :show-nested:

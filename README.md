@@ -80,8 +80,8 @@ from authorship.reader import GoogleSheetReader
 
 reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
 reader.print("text")
-reader.print("biorxiv)
-reader.print("scientific data)
+reader.print("biorxiv")
+reader.print("scientific data")
 ```
 
 The next example shows loading an

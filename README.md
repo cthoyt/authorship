@@ -40,7 +40,21 @@
 
 Format author lists for academic texts and journal submissions.
 
+## 🕵️ Why does this exist?
+
+Maintaining author lists on collaborative academic work is a bit of a pain.
+A lot of us have started collecting author information on Google Sheets since
+it allows people to input their own information, like their ORCID and
+affiliations. I wanted to automate turning those sheets into some useful forms
+for copy/pasting into my manuscripts (e.g., in Google Docs or LaTeX) as well
+submission forms (e.g., bulk author TSV file import on bioRxiv).
+
 ## 💪 Getting Started
+
+This example shows loading a [standardized spreadsheet](https://docs.google.com/spreadsheets/d/1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI/edit#gid=0)
+from Google Sheets that is subsequently printed in a nice text format, in a
+bioRxiv bulk import format, and in LaTeX for a submission to
+*Nature Scientific Data*.
 
 ```python
 from authorlist.reader import GoogleSheetReader, OboGoogleSheetReader
@@ -55,16 +69,36 @@ ScientificDataWriter().print(reader)
 # shortcut via class_resolver
 reader.print("text")
 reader.print("biorxiv)
+```
+
+The next example shows loading an
+[OBO community-flavored spreadsheet](https://docs.google.com/spreadsheets/d/1NfhibWHOKgV2glmgRdKMzHEzTCw2_dUq_t0Zq64cgeQ)
+from Google Sheets. This has been used for the SSSOM, ODK, Cell Ontology,
+and several other papers. 
+
+```python
+from authorlist.reader import OboGoogleSheetReader
 
 # OBO community-flavored google sheet
 reader = OboGoogleSheetReader(
    "1NfhibWHOKgV2glmgRdKMzHEzTCw2_dUq_t0Zq64cgeQ",
    skiprows=1,
 )
-TextWriter().print(reader)
-BiorxivWriter().print(reader)
-ScientificDataWriter().print(reader)
+reader.print("text")
+reader.print("biorxiv")
+reader.print("scientific data")
 ```
+
+## 🐇 Extending
+
+You can implement your own reader subclassing the `Reader` class and
+implementing the `get_authorship()` function.
+
+Similarly, you can implement your own writer by subclassing the `Writer` class
+an implementing the `iter_lines()` function
+
+We'd be happy to accept new plugins, especially to help auto-generate LaTeX for
+various journal-specific LaTeX templates.
 
 ## 🚀 Installation
 

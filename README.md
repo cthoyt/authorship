@@ -80,7 +80,7 @@ from authorship.reader import GoogleSheetReader
 
 reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
 reader.print("text")
-reader.print("biorxiv")
+reader.print("biorxiv", file="~/Desktop/bioregistry_authors_biorxiv.tsv")
 reader.print("scientific data")
 ```
 
@@ -98,7 +98,7 @@ reader = OboGoogleSheetReader(
    skiprows=1,
 )
 reader.print("text")
-reader.print("biorxiv")
+reader.print("biorxiv", file="~/Desktop/sssom_authors_biorxiv.tsv")
 reader.print("scientific data")
 ```
 

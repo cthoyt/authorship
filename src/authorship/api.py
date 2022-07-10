@@ -68,13 +68,20 @@ class Reader(ABC):
         self,
         writer: HintOrType["Writer"],
         writer_kwargs: OptionalKwargs = None,
+        file=None,
         **kwargs,
     ) -> None:
         """Print the authorship from this reader with a writer, given by name (e.g., text, biorxiv)."""
         from .writer import writer_resolver
 
         _writer = writer_resolver.make(writer, writer_kwargs)
-        _writer.print(self.get_authorship(), **kwargs)
+        if file is None:
+            _writer.print(self.get_authorship(), **kwargs)
+        elif isinstance(file, (str, Path)):
+            with Path(file).expanduser().resolve().open("w") as _file:
+                _writer.print(self.get_authorship(), file=_file, **kwargs)
+        else:
+            _writer.print(self.get_authorship(), file=file, **kwargs)
 
 
 class Writer(ABC):

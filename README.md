@@ -36,6 +36,9 @@
     <a href="https://github.com/cthoyt/authorship/blob/main/.github/CODE_OF_CONDUCT.md">
         <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" alt="Contributor Covenant"/>
     </a>
+    <a href="https://zenodo.org/badge/latestdoi/512023259">
+        <img src="https://zenodo.org/badge/512023259.svg" alt="DOI">
+    </a>
 </p>
 
 Format author lists for academic texts and journal submissions.
@@ -102,14 +105,12 @@ various journal-specific LaTeX templates.
 
 ## 🚀 Installation
 
-<!-- Uncomment this section after your first ``tox -e finish``
 The most recent release can be installed from
 [PyPI](https://pypi.org/project/authorship/) with:
 
 ```bash
 $ pip install authorship
 ```
--->
 
 The most recent code and data can be installed directly from GitHub with:
 

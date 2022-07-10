@@ -60,7 +60,7 @@ bioRxiv bulk import format, and in LaTeX for a submission to
 *Nature Scientific Data*.
 
 ```python
-from authorship.reader import GoogleSheetReader, OboGoogleSheetReader
+from authorship.reader import GoogleSheetReader
 from authorship.writer import BiorxivWriter, ScientificDataWriter, TextWriter
 
 # Standard google sheet
@@ -68,10 +68,20 @@ reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
 TextWriter().print(reader)
 BiorxivWriter().print(reader)
 ScientificDataWriter().print(reader)
+```
 
-# shortcut via class_resolver
+The [`class-resolver`](https://github.com/cthoyt/class-resolver) package can be
+used as a shortcut to access the writers based on their names. It's smart and
+figures out casing/spacing/ punctuation, so you don't have to worry about so
+many imports. The following example does the same as the previous example:
+
+```python
+from authorship.reader import GoogleSheetReader
+
+reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
 reader.print("text")
 reader.print("biorxiv)
+reader.print("scientific data)
 ```
 
 The next example shows loading an

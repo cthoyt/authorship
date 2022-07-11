@@ -2,11 +2,12 @@
 
 from class_resolver import ClassResolver
 
+from .base import Reader
 from .google_sheets import GoogleSheetReader, SheetReader
 from .obo_sheet import OboGoogleSheetReader, OboSheetReader
-from ..api import Reader
 
 __all__ = [
+    "Reader",
     "reader_resolver",
     # Concrete classes
     "SheetReader",

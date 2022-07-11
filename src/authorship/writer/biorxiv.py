@@ -2,7 +2,8 @@
 
 from typing import Iterable
 
-from ..api import Author, Authorship, Writer
+from .base import Writer
+from ..models import Author, Authorship
 
 HEADER = [
     "Email",

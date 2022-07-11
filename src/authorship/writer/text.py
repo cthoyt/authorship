@@ -5,8 +5,9 @@
 from operator import itemgetter
 from typing import Iterable
 
-from ..api import Authorship, Writer
+from .base import Writer
 from ..constants import SUPERSCRIPTS_TRANS
+from ..models import Authorship
 
 __all__ = [
     "TextWriter",

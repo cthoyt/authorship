@@ -3,7 +3,8 @@
 from operator import itemgetter
 from typing import Iterable, Optional
 
-from ..api import Author, Authorship, Writer
+from .base import Writer
+from ..models import Author, Authorship
 
 __all__ = [
     "ScientificDataWriter",

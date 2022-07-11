@@ -4,8 +4,9 @@ from typing import Union
 
 import pandas as pd
 
-from ..api import Author, Authorship, Institution, Reader
+from .base import Reader
 from ..constants import get_hoyt_google_sheets_df, hoyt_sort_key, safe
+from ..models import Author, Authorship, Institution
 
 __all__ = [
     "SheetReader",

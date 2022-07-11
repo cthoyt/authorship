@@ -2,12 +2,13 @@
 
 from class_resolver import ClassResolver
 
+from .base import Writer
 from .biorxiv import BiorxivWriter
 from .nature_scientific_data import ScientificDataWriter
 from .text import TextWriter
-from ..api import Writer
 
 __all__ = [
+    "Writer",
     "writer_resolver",
     # Concrete classes
     "TextWriter",

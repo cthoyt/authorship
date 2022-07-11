@@ -25,7 +25,7 @@ class Writer(ABC):
 
     def to_lines(self, authorship: Union["Reader", Authorship]) -> list[str]:
         """Make lines for the authorship."""
-        from ..reader import Reader
+        from ..readers import Reader
 
         if isinstance(authorship, Reader):
             authorship = authorship.get_authorship()

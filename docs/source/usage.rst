@@ -5,12 +5,12 @@ Models
 
 Readers
 =======
-.. automodapi:: authorship.reader
+.. automodapi:: authorship.readers
     :no-heading:
 
 Writers
 =======
-.. automodapi:: authorship.writer
+.. automodapi:: authorship.writers
     :no-heading:
 
 Utilities

@@ -60,8 +60,8 @@ bioRxiv bulk import format, and in LaTeX for a submission to
 *Nature Scientific Data*.
 
 ```python
-from authorship.reader import GoogleSheetReader
-from authorship.writer import BiorxivWriter, ScientificDataWriter, TextWriter
+from authorship.readers import GoogleSheetReader
+from authorship.writers import BiorxivWriter, ScientificDataWriter, TextWriter
 
 # Standard google sheet
 reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
@@ -76,7 +76,7 @@ figures out casing/spacing/ punctuation, so you don't have to worry about so
 many imports. The following example does the same as the previous example:
 
 ```python
-from authorship.reader import GoogleSheetReader
+from authorship.readers import GoogleSheetReader
 
 reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
 reader.print("text")
@@ -91,7 +91,7 @@ from Google Sheets. This has been used for the SSSOM, ODK, Cell Ontology,
 and several other papers. 
 
 ```python
-from authorship.reader import OboGoogleSheetReader
+from authorship.readers import OboGoogleSheetReader
 
 # OBO community-flavored google sheet
 reader = OboGoogleSheetReader(
@@ -105,11 +105,11 @@ reader.print("scientific data")
 
 ## 🐇 Extending
 
-You can implement your own reader subclassing the `Reader` class and
-implementing the `get_authorship()` function.
+You can implement your own reader subclassing the `authorship.readers.Reader`
+class and implementing the `get_authorship()` function.
 
-Similarly, you can implement your own writer by subclassing the `Writer` class
-an implementing the `iter_lines()` function
+Similarly, you can implement your own writer by subclassing the
+`authorship.writers.Writer` class and implementing the `iter_lines()` function.
 
 We'd be happy to accept new plugins, especially to help auto-generate LaTeX for
 various journal-specific LaTeX templates.
@@ -139,31 +139,6 @@ Contributions, whether filing an issue, making a pull request, or forking, are a
 ### ⚖️ License
 
 The code in this package is licensed under the MIT License.
-
-<!--
-### 📖 Citation
-
-Citation goes here!
--->
-
-<!--
-### 🎁 Support
-
-This project has been supported by the following organizations (in alphabetical order):
-
-- [Harvard Program in Therapeutic Science - Laboratory of Systems Pharmacology](https://hits.harvard.edu/the-program/laboratory-of-systems-pharmacology/)
-
--->
-
-<!--
-### 💰 Funding
-
-This project has been supported by the following grants:
-
-| Funding Body                                             | Program                                                                                                                       | Grant           |
-|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| DARPA                                                    | [Automating Scientific Knowledge Extraction (ASKE)](https://www.darpa.mil/program/automating-scientific-knowledge-extraction) | HR00111990009   |
--->
 
 ### 🍪 Cookiecutter
 

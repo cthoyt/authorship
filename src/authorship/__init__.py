@@ -3,7 +3,7 @@
 """Format author lists for academic texts and journal submissions."""
 
 from .models import Author, Authorship, Institution
-from .reader import (
+from .readers import (
     GoogleSheetReader,
     OboGoogleSheetReader,
     OboSheetReader,
@@ -11,7 +11,7 @@ from .reader import (
     SheetReader,
     reader_resolver,
 )
-from .writer import (
+from .writers import (
     BiorxivWriter,
     CitationCFFWriter,
     ScientificDataWriter,

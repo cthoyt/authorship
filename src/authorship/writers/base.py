@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Iterable, Union
 from ..models import Authorship
 
 if TYPE_CHECKING:
-    from ..reader import Reader
+    from ..readers import Reader
 
 __all__ = [
     "Writer",

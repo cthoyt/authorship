@@ -11,7 +11,7 @@ from class_resolver import HintOrType, OptionalKwargs
 from ..models import Authorship
 
 if TYPE_CHECKING:
-    from ..writer import Writer
+    from ..writers import Writer
 
 __all__ = [
     "Reader",
@@ -33,7 +33,7 @@ class Reader(ABC):
         **kwargs,
     ) -> None:
         """Print the authorship from this reader with a writer, given by name (e.g., text, biorxiv)."""
-        from ..writer import writer_resolver
+        from ..writers import writer_resolver
 
         _writer = writer_resolver.make(writer, writer_kwargs)
         if file is None:

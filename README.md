@@ -82,6 +82,7 @@ reader = GoogleSheetReader("1Fo1YH3ZzOVrQ4wzKnBm6sPha5hZG66-u-uSMDGUvguI")
 reader.print("text")
 reader.print("biorxiv", file="~/Desktop/bioregistry_authors_biorxiv.tsv")
 reader.print("scientific data")
+reader.print("citation cff")
 ```
 
 The next example shows loading an

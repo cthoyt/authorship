@@ -11,7 +11,14 @@ from .reader import (
     SheetReader,
     reader_resolver,
 )
-from .writer import BiorxivWriter, ScientificDataWriter, TextWriter, Writer, writer_resolver
+from .writer import (
+    BiorxivWriter,
+    CitationCFFWriter,
+    ScientificDataWriter,
+    TextWriter,
+    Writer,
+    writer_resolver,
+)
 
 __all__ = [
     # Models
@@ -31,4 +38,5 @@ __all__ = [
     "BiorxivWriter",
     "TextWriter",
     "ScientificDataWriter",
+    "CitationCFFWriter",
 ]

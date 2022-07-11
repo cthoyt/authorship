@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 __all__ = [
     "Reader",
+    "PreparedReader",
 ]
 
 
@@ -43,3 +44,15 @@ class Reader(ABC):
                 _writer.print(self.get_authorship(), file=_file, **kwargs)
         else:
             _writer.print(self.get_authorship(), file=file, **kwargs)
+
+
+class PreparedReader(Reader):
+    """A reader for prepared :class:`Authorship` instances."""
+
+    def __init__(self, authorship: "Authorship"):
+        """Instantiate the prepared reader."""
+        self.authorship = authorship
+
+    def get_authorship(self) -> "Authorship":
+        """Get the prepared authorship."""
+        return self.authorship

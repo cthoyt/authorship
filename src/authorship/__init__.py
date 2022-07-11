@@ -7,6 +7,7 @@ from .readers import (
     GoogleSheetReader,
     OboGoogleSheetReader,
     OboSheetReader,
+    PreparedReader,
     Reader,
     SheetReader,
     reader_resolver,
@@ -28,6 +29,7 @@ __all__ = [
     # Readers
     "reader_resolver",
     "Reader",
+    "PreparedReader",
     "OboSheetReader",
     "OboGoogleSheetReader",
     "SheetReader",

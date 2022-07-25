@@ -6,6 +6,7 @@ from .base import Writer
 from .biorxiv import BiorxivWriter
 from .citation_cff import CitationCFFWriter
 from .nature_scientific_data import ScientificDataWriter
+from .oxford_bioinformatics import OxfordBioinformaticsDataWriter
 from .text import TextWriter
 
 __all__ = [
@@ -16,6 +17,7 @@ __all__ = [
     "BiorxivWriter",
     "ScientificDataWriter",
     "CitationCFFWriter",
+    "OxfordBioinformaticsDataWriter",
 ]
 
 writer_resolver: ClassResolver[Writer] = ClassResolver.from_subclasses(Writer)
